@@ -3,7 +3,9 @@
     <!-- Begin:wrapper -->
     <div class="container mt-3">
       <div class="card text-bg-dark">
-        <h3 class="card-header">Chat-App</h3>
+        <div class="card-header d-flex">
+          <h3>Chat-App</h3>
+        </div>
         <div class="card-body">
           <div class="ms-auto">
             <router-view />

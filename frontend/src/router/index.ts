@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import store from "@/store";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    component: () => import("@/views/crafted/component/MainBody.vue"),
+    component: () => import("@/views/crafted/partials/MainBody.vue"),
     children: [
       {
         path: "/log-in",
@@ -19,10 +20,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/beranda",
         name: "beranda",
         component: () => import("@/views/layout/ChatLayout.vue"),
-        beforeEnter: (to, from, next) => {
-          const auth = true;
-
-          if (auth) {
+        beforeEnter: async (to, from, next) => {
+          if (
+            store.getters.statusLogin &&
+            (await store.dispatch("getPermission"))
+          ) {
             next();
           } else {
             next({ name: "log-in" });

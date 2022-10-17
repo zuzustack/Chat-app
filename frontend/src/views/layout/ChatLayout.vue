@@ -10,8 +10,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import Sidebar from "@/views/crafted/component/SidebarFriend.vue";
-import ChatMenu from "@/views/crafted/component/ChatMenu.vue";
+import Sidebar from "@/views/crafted/partials/SidebarFriend.vue";
+import ChatMenu from "@/views/crafted/partials/ChatMenu.vue";
+import Swal from "sweetalert2";
 
 export default defineComponent({
   components: {
@@ -20,6 +21,10 @@ export default defineComponent({
   },
   setup() {
     console.log("You Log-In");
+  },
+
+  mounted() {
+    Swal.close();
   },
 });
 </script>

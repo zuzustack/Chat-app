@@ -4,16 +4,30 @@
       <h5 class="card-title text-center">Login</h5>
       <div class="row g-3">
         <div class="">
+          <div v-if="error.isError" class="alert alert-danger" role="alert">
+            {{ error.message }}
+          </div>
+
           <label for="inputEmail4" class="text-center form-label">
             Username
           </label>
-          <input type="text" class="form-control" id="inputEmail4" />
+          <input
+            type="text"
+            class="form-control"
+            v-model="form.username"
+            id="inputEmail4"
+          />
         </div>
         <div class="">
           <label for="inputPassword4" class="form-label text-center">
             Password
           </label>
-          <input type="password" class="form-control" id="inputPassword4" />
+          <input
+            type="password"
+            v-model="form.password"
+            class="form-control"
+            id="inputPassword4"
+          />
         </div>
         <div class="col-12">
           <button
@@ -35,19 +49,49 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
+import TokenService from "@/core/services/TokenService";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { Actions } from "@/store/enum/StoreEnum";
+import Swal from "sweetalert2";
 
 export default defineComponent({
   setup() {
+    const store = useStore();
     const router = useRouter();
-    const onSubmitLogin = () => {
-      router.push({ name: "beranda" });
+
+    let form = reactive({
+      username: "",
+      password: "",
+    });
+
+    let error = reactive({
+      message: "",
+      isError: false,
+    });
+
+    const onSubmitLogin = async () => {
+      Swal.showLoading();
+
+      await store.dispatch(Actions.LOGIN_USER, form);
+
+      console.log(store.getters.errorAuth);
+
+      if (store.getters.errorAuth) {
+        error.message = store.getters.errorAuth;
+        error.isError = true;
+        Swal.close();
+      } else {
+        router.push({ name: "beranda" });
+        Swal.close();
+      }
     };
 
     console.log("MASUKK");
+    console.log(TokenService.getToken());
 
-    return { onSubmitLogin };
+    return { onSubmitLogin, form, error };
   },
 });
 </script>

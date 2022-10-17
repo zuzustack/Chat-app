@@ -1,7 +1,8 @@
 export enum Actions {
-  GET_USER_AUTH = "getUser",
+  LOGIN_USER = "loginUser",
 }
 
 export enum Mutations {
   SET_USER_AUTH = "setUser",
+  SET_ERROR_LOGIN = "setErrorLogin",
 }

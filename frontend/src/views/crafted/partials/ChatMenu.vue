@@ -39,6 +39,14 @@
   </div>
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useStore } from "vuex";
+import ApiService from "@/core/services/ApiService";
+
+export default defineComponent({});
+</script>
+
 <style scoped>
 .h-chatbox {
   height: 25rem;
