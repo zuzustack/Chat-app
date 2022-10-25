@@ -6,6 +6,7 @@ import { Module, Action, Mutation, VuexModule } from "vuex-module-decorators";
 export interface UserAuth {
   name: string;
   photo_url: string;
+  id: string;
 }
 
 export interface AuthClass {
@@ -19,6 +20,7 @@ export default class AuthModule extends VuexModule implements AuthClass {
   user = {
     name: "",
     photo_url: "",
+    id: "",
   };
   isLogin = !!TokenService.getToken();
   errors = "";
@@ -38,6 +40,8 @@ export default class AuthModule extends VuexModule implements AuthClass {
   @Mutation
   [Mutations.SET_USER_AUTH](user: UserAuth) {
     this.user = user;
+
+    window.localStorage.setItem("ID_USER", user.id);
   }
 
   @Mutation

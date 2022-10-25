@@ -9,7 +9,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, Ref, ref } from "vue";
 import Sidebar from "@/views/crafted/partials/SidebarFriend.vue";
 import ChatMenu from "@/views/crafted/partials/ChatMenu.vue";
 import Swal from "sweetalert2";

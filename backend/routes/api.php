@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,14 @@ Route::middleware('auth:sanctum')->group(function () {
             'status' => 'oke'
         ]);
     });
+
+    Route::get('/getFriends', [UserController::class, 'getFriends']);
 });
+
+
+Route::get('/message', [MessageController::class, 'getMessage']);
+
+Route::post('/sendMessage', [MessageController::class, 'sendMessage']);
 
 
 Route::post('/login', [AuthController::class, 'login']);
